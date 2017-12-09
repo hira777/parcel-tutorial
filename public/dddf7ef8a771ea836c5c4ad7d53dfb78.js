@@ -65,7 +65,7 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({13:[function(require,module,exports) {
+})({8:[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -96,7 +96,7 @@ function getBaseURL(url) {
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 
-},{}],12:[function(require,module,exports) {
+},{}],6:[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -128,13 +128,13 @@ function reloadCSS() {
 
 module.exports = reloadCSS;
 
-},{"./bundle-url":13}],9:[function(require,module,exports) {
+},{"./bundle-url":8}],4:[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"./../images/parcel.png":["e55a1d909b7adad3efe4170b8bfee1d8.png",11],"_css_loader":12}],10:[function(require,module,exports) {
+},{"_css_loader":6,"./../images/parcel.png":["e55a1d909b7adad3efe4170b8bfee1d8.png",7]}],5:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -144,7 +144,7 @@ exports.default = add;
 function add(number1, number2) {
   return number1 + number2;
 }
-},{}],8:[function(require,module,exports) {
+},{}],2:[function(require,module,exports) {
 "use strict";
 
 require("../scss/style.scss");
@@ -156,11 +156,11 @@ var _add2 = _interopRequireDefault(_add);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var number1 = 400;
-var number2 = 1000;
+var number2 = 600;
 var total = (0, _add2.default)(number1, number2);
 
 console.log(total);
-},{"../scss/style.scss":9,"./modules/add":10}],0:[function(require,module,exports) {
+},{"../scss/style.scss":4,"./modules/add":5}],0:[function(require,module,exports) {
 var global = (1,eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
@@ -178,7 +178,7 @@ function Module() {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent) {
-  var ws = new WebSocket('ws://localhost:65310/');
+  var ws = new WebSocket('ws://localhost:50193/');
   ws.onmessage = (e) => {
     var data = JSON.parse(e.data);
 
@@ -260,4 +260,4 @@ function hmrAccept(bundle, id) {
 
   return getParents(global.require, id).some(id => hmrAccept(global.require, id));
 }
-},{}]},{},[0,8])
+},{}]},{},[0,2])
