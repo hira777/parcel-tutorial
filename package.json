@@ -2,6 +2,9 @@
   "name": "parcel-example",
   "version": "1.0.0",
   "license": "MIT",
+  "scripts": {
+    "start": "parcel src/index.html -d public"
+  },
   "devDependencies": {
     "babel-preset-env": "^1.6.1",
     "node-sass": "^4.7.2"

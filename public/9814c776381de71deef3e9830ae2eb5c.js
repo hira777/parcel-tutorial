@@ -65,7 +65,7 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({8:[function(require,module,exports) {
+})({10:[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -96,7 +96,7 @@ function getBaseURL(url) {
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 
-},{}],6:[function(require,module,exports) {
+},{}],8:[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -128,13 +128,13 @@ function reloadCSS() {
 
 module.exports = reloadCSS;
 
-},{"./bundle-url":8}],4:[function(require,module,exports) {
+},{"./bundle-url":10}],6:[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":6,"./../images/parcel.png":["e55a1d909b7adad3efe4170b8bfee1d8.png",7]}],5:[function(require,module,exports) {
+},{"_css_loader":8,"./../images/parcel.png":["d54d1ca842934f8b729aca7993150320.png",9]}],7:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -144,7 +144,7 @@ exports.default = add;
 function add(number1, number2) {
   return number1 + number2;
 }
-},{}],2:[function(require,module,exports) {
+},{}],4:[function(require,module,exports) {
 "use strict";
 
 require("../scss/style.scss");
@@ -160,8 +160,8 @@ var number2 = 600;
 var total = (0, _add2.default)(number1, number2);
 
 console.log(total);
-},{"../scss/style.scss":4,"./modules/add":5}],0:[function(require,module,exports) {
-var global = (1,eval)('this');
+},{"../scss/style.scss":6,"./modules/add":7}],0:[function(require,module,exports) {
+var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
   OldModule.call(this);
@@ -178,20 +178,32 @@ function Module() {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent) {
-  var ws = new WebSocket('ws://localhost:50193/');
-  ws.onmessage = (e) => {
-    var data = JSON.parse(e.data);
+  var ws = new WebSocket('ws://localhost:49474/');
+  ws.onmessage = function(event) {
+    var data = JSON.parse(event.data);
 
     if (data.type === 'update') {
-      for (let asset of data.assets) {
+      data.assets.forEach(function (asset) {
         hmrApply(global.require, asset);
-      }
+      });
 
-      for (let asset of data.assets) {
+      data.assets.forEach(function (asset) {
         if (!asset.isNew) {
           hmrAccept(global.require, asset.id);
         }
-      }
+      });
+    }
+
+    if (data.type === 'reload') {
+      window.location.reload();
+    }
+
+    if (data.type === 'error-resolved') {
+      console.log('[parcel] ✨ Error resolved');
+    }
+
+    if (data.type === 'error') {
+      console.error(`[parcel] 🚨 ${data.error.message}\n${data.error.stack}`);
     }
   };
 }
@@ -202,10 +214,12 @@ function getParents(bundle, id) {
     return [];
   }
 
-  let parents = [];
-  for (let k in modules) {
-    for (let d in modules[k][1]) {
-      let dep = modules[k][1][d];
+  var parents = [];
+  var k, d, dep;
+
+  for (k in modules) {
+    for (d in modules[k][1]) {
+      dep = modules[k][1][d];
       if (dep === id || (Array.isArray(dep) && dep[dep.length - 1] === id)) {
         parents.push(+k);
       }
@@ -226,7 +240,7 @@ function hmrApply(bundle, asset) {
   }
 
   if (modules[asset.id] || !bundle.parent) {
-    let fn = new Function('require', 'module', 'exports', asset.generated.js);
+    var fn = new Function('require', 'module', 'exports', asset.generated.js);
     asset.isNew = !modules[asset.id];
     modules[asset.id] = [fn, asset.deps];
   } else if (bundle.parent) {
@@ -244,7 +258,7 @@ function hmrAccept(bundle, id) {
     return hmrAccept(bundle.parent, id);
   }
 
-  let cached = bundle.cache[id];
+  var cached = bundle.cache[id];
   if (cached && cached.hot._disposeCallback) {
     cached.hot._disposeCallback();
   }
@@ -258,6 +272,8 @@ function hmrAccept(bundle, id) {
     return true;
   }
 
-  return getParents(global.require, id).some(id => hmrAccept(global.require, id));
+  return getParents(global.require, id).some(function (id) {
+    return hmrAccept(global.require, id)
+  });
 }
-},{}]},{},[0,2])
+},{}]},{},[0,4])
