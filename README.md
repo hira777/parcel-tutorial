@@ -1,6 +1,8 @@
 # Code Splitting という機能を利用して、共通利用できるモジュールのバンドルファイルを出力するサンプル
 
-`index.js`と`about.js`で利用している`render.js`を、共通利用できるモジュールのバンドルファイルとして出力する。
+このサンプルでは、エントリーポイントである`index.html`と`about.html`が存在し、`index.html`からは`index.js`を、`about.html`からは`about.js`を読み込んでいる。
+
+また、`index.js`と`about.js`では`render.js`を利用しており、これを共通利用できるモジュールのバンドルファイルとして出力する。
 
 モジュールである`render.js`は以下の処理を行なっている。
 
