@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "parcel src/index.html -d public"
+    "build": "parcel src/index.html src/about.html -d public"
   },
   "devDependencies": {
-    "node-sass": "^4.9.0",
     "parcel-bundler": "^1.8.1"
   }
 }

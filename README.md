@@ -1,39 +1,31 @@
-# Parcel tutorial
-各ファイルの詳細は以下の記事をご覧ください。
+# Code Splitting という機能を利用して、共通利用できるモジュールのバンドルファイルを出力するサンプル
 
-[Parcel 入門](https://qiita.com/soarflat/items/3e43368b2d767c730781)
+`index.js`と`about.js`で利用している`render.js`を、共通利用できるモジュールのバンドルファイルとして出力する。
 
-## 使い方
+モジュールである`render.js`は以下の処理を行なっている。
 
-### Parcelのインストール
+```js
+console.log('module.js loaded');
 
-```bash
-npm install -g parcel-bundler
+export function render(element) {
+  element.innerHTML = 'clicked!!!!!';
+}
 ```
 
-or
+モジュールは dynamic import でインポートする必要がある（詳しくはコードを参照）ので以下のように動的に読み込まれる。
 
-```bash
-yarn global add parcel-bundler
-```
+**index.html**
 
-### clone
+![index.html](./README_resources/index.gif)
 
-```bash
-git clone git@github.com:hira777/parcel-tutorial.git
-cd parcel-tutorial
-```
+**about.html**
 
-### Parcelの実行
+![about.html](./README_resources/about.gif)
 
-``` bash
-yarn
-yarn run build
-```
+リクエスト先が同じであり、clicked!!!!! も描画されているため、どちらも共通のバンドルファイル（モジュール）が読み込まれていることがわかる。
 
-or
+## ビルド
 
-``` bash
-npm install
-yarn run build
+```shell
+parcel src/index.html src/about.html -d public
 ```
