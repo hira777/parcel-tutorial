@@ -1,39 +1,27 @@
-# Parcel tutorial
-各ファイルの詳細は以下の記事をご覧ください。
+# 複数のエントリーポイントから共通のバンドルファイルを出力できるか検証 (v1.1.0)
 
-[Parcel 入門](https://qiita.com/soarflat/items/3e43368b2d767c730781)
+自分が執筆した「Parcel 入門 ～ Parcel は webpack の代わりになるのか～」で以下の記載をしたが、
 
-## 使い方
+> 複数の html（エントリーポイント）から読み込む共通のバンドルファイルを出力できない
 
-### Parcelのインストール
+これが誤っている可能性があるため検証。
 
-```bash
-npm install -g parcel-bundler
+## 検証方法
+
+記事を執筆当時のバージョンは複数エントリーポイントに対応していない 1.1.0 なので、それぞれビルドする。
+
+```shell
+parcel src/index.html -d public
 ```
 
-or
-
-```bash
-yarn global add parcel-bundler
+```shell
+parcel src/about.html -d public
 ```
 
-### clone
+`index.html`と`about.html`はどちらも、`index.js`を読み込んでいるため、`public`に出力される JavaScript ファイルが一つであれば、共通のバンドルファイルを出力できると言える。
 
-```bash
-git clone git@github.com:hira777/parcel-tutorial.git
-cd parcel-tutorial
-```
+## 検証結果
 
-### Parcelの実行
+JavaScript ファイルは一つだけ出力された。
 
-``` bash
-yarn
-yarn run build
-```
-
-or
-
-``` bash
-npm install
-yarn run build
-```
+そのため、記事内容は誤りだった。
